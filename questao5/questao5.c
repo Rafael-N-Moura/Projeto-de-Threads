@@ -39,8 +39,8 @@ int mapa[TAM][TAM] = {{1,1,0,1,0,0,0,1,0,1},
 
 
 
-int size_lines=TAM;  //sizeof(mapa)/sizeof(*mapa);
-int size_columns=TAM;//sizeof(*mapa)/sizeof(**mapa);
+int size_lines=TAM;  
+int size_columns=TAM;
 int sombra[TAM][TAM][3];
 
 
@@ -53,7 +53,7 @@ struct head{
 	int x,y;
 };
 
-struct equal {  // a estrutura que serve de varios parametros para a pthread
+struct equal { 
     struct head h1;
     struct head h2;
 };
@@ -170,7 +170,7 @@ void *find_terra(void *tid){
 	}
 	if(threadId == (NUM_THREADS-1))
 		printf("\n*********************\nnumero de ilhas: %d\n", count-equal_count );
-	//return count-equal_count;
+	
 }
 
 
@@ -228,9 +228,6 @@ int main (){
 		printf("\n\n");
 	}
 
-
-	//printf("\n\nisso aquita fora\nterras: %d\n", find_terra( (void *)taskids[t]) );
-	//printf("outer: terras: %d\n", count-equal_count );
 	pthread_exit(NULL);
 	return 0;	
 
