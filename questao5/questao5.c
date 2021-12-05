@@ -21,14 +21,14 @@ horizontal, ou na diagonal, elas são da mesma ilha.
 #define TAM 10
 #define NUM_THREADS 4
 int mapa[TAM][TAM] = {{1,1,0,1,0,0,0,1,0,1},
-		      {1,1,0,1,1,0,1,1,0,1},
+		      {1,1,0,0,1,0,1,1,0,1},
 		      {0,0,0,1,0,0,0,0,0,0},
 		      {1,1,0,0,0,0,1,1,1,0},
-		      {0,1,1,0,0,0,1,0,1,0},
-		      {1,1,1,1,0,0,1,1,1,0},
-		      {1,0,0,0,0,0,0,0,0,0},
-		      {1,0,0,0,1,0,0,1,1,1},
-		      {1,0,0,1,1,1,0,1,0,0},
+		      {0,0,1,0,0,0,1,0,1,0},
+		      {1,0,1,1,0,0,1,1,1,0},
+		      {0,0,0,0,0,0,0,0,0,0},
+		      {1,0,0,0,1,0,0,1,0,1},
+		      {1,0,0,1,1,1,0,1,0,1},
 		      {0,0,0,1,1,1,0,1,0,1},};
 
 //***************************************************************************************************************************************************
@@ -166,14 +166,15 @@ void *find_terra(void *tid){
 			}
 		}			
 	}
-	if(threadId == (NUM_THREADS-1))
-		printf("\n*********************\nnumero de ilhas: %d\n", count-equal_count );
 	
 }
 
 
 
 int main (){
+
+	count=0;
+	equal_count=0;
 	
 	pthread_t threads[NUM_THREADS]; 
   	int *taskids[NUM_THREADS];
@@ -197,18 +198,28 @@ int main (){
   	}   
 
   	 
-	printf("*********************\nmapa final desenhado:\n\n");
+	printf("\n*********************\nnumero de ilhas: %d\n", count-equal_count );
+	printf("*********************\nmapa final desenhado:\n\n|");
 	for(i=0;i<size_lines;i++){
 		for(j=0;j < size_columns;j++){
 			if(sombra[i][j][1]!=-1){
-				printf("|%d,%d| ",sombra[i][j][1],sombra[i][j][2]);
+
+					if(sombra[i][j][1]<=9){
+						printf(" ");
+					}
+					printf("%d,",sombra[i][j][1]);
+					if(sombra[i][j][2]<=9){
+						printf(" ");
+					}
+					printf("%d|",sombra[i][j][2]);
+
+				
 			}else{
-				printf("|_,_| ");
+				printf("     |");
 			}	
 		}	
-		printf("\n\n");
+		printf("\n|");
 	}
-
 	pthread_exit(NULL);
 	return 0;	
 
