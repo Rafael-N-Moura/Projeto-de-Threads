@@ -7,14 +7,12 @@
 
 
 /*
-
 5 - A marinha recebeu um mapa em formato de matriz com 0 e 1, de tal forma que:
 0: água
 1: terra
 Sua equipe deverá implementar um programa em pthreads para identificar a quantidade de
 ilhas no mapa. De forma geral, se duas posições de terra são adjacentes na vertical, na
 horizontal, ou na diagonal, elas são da mesma ilha.
-
 */
 
 //****************************************************************************************************************************************************
@@ -203,23 +201,6 @@ int main (){
 	for(i=0;i<size_lines;i++){
 		for(j=0;j < size_columns;j++){
 			if(sombra[i][j][1]!=-1){
-				int k;
-				for(k=0;k<equal_count;k++){
-					
-					if(sombra[i][j][1]==equal_head[k].h1.x &&
-					   sombra[i][j][2]==equal_head[k].h1.y){
-						if((equal_head[k].h1.x+equal_head[k].h1.y)<=(equal_head[k].h2.x+equal_head[k].h2.y)){
-							sombra[i][j][1]=equal_head[k].h1.x;
-							sombra[i][j][2]=equal_head[k].h1.y;
-
-						}if((equal_head[k].h1.x+equal_head[k].h1.y)>(equal_head[k].h2.x+equal_head[k].h2.y)){
-							sombra[i][j][1]=equal_head[k].h2.x;
-							sombra[i][j][2]=equal_head[k].h2.y;
-						}			
-					}					
-
-											
-				}
 				printf("|%d,%d| ",sombra[i][j][1],sombra[i][j][2]);
 			}else{
 				printf("|_,_| ");
@@ -232,23 +213,6 @@ int main (){
 	return 0;	
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
