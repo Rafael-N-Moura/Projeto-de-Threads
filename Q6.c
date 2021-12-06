@@ -4,7 +4,7 @@
 #include <semaphore.h>
 // output: Espera as n threads escreverem e faz a leitura sequencial do buffer 
 pthread_mutex_t array_buffer;         //controla o acesso ao banco de dados
-pthread_mutex_t mutex;      //controla o acesso a variável n_readers
+pthread_mutex_t mutex;      //controla o acesso a variÃ¡vel n_readers
 int n_readers;                   //quantidade de leitores lendo
 int *buffer=NULL;
 int buffer_size=0;
@@ -18,7 +18,7 @@ void sleep_leitura(){
 	printf("\n...Procurando informacoes no banco de dados...\n");
 	sleep(5);
 }
-void Writedb(int id){ //essa funcao eh responsavel por adicionar itens no banco de dados 
+void Writedb(int id){ //essa funcao eh responsavel por adicionar itens no banco de dados  e escrever no buffer
 
 	int value = rand() % 100;/*valor que vai ser escrito no array*/
 	buffer=(int*)realloc(buffer,(buffer_size+1)*sizeof(int));
@@ -30,10 +30,10 @@ void Writedb(int id){ //essa funcao eh responsavel por adicionar itens no banco 
 	sleep(5);
 }	
 void writer(void *tid) {
-	int id= (*(int *)tid);
+	int id= (*(int *)tid); // id thread
 while(1)            
     {
-    sleep_escrita();            //pensa em informações para adicionar a base de dados
+    sleep_escrita();            //so pra melhorar a visualizaÃ§Ã£o da execucao do programa
         pthread_mutex_lock(&array_buffer);    //down(&buffer); garante acesso exclusivo a base de dados
         Writedb(id);          //escreve novas informacoes na base de dados
 
@@ -48,9 +48,9 @@ void Readdb(int id){
 	sleep(3);
 }
 
-void reader(void *tid) {  // a variavel n_readers controla o numero de leitores. O numero de leitores é dado pelo num de threads.
+void reader(void *tid) {  // a variavel n_readers controla o numero de leitores. O numero de leitores Ã© dado pelo num de threads.
 //a variavel n_readers serve p cntar o numero de leitores que ta lendo o buffer no momento.
-  int id= (*(int *)tid);//
+  int id= (*(int *)tid); //id da thread
 while (1) {  
 	if(buffer_size>0){ // so vai ler algo se o buffer tiver pelo menos 1 elemento
   		pthread_mutex_lock(&mutex);           //down(&mutex); garante acesso exclusivo a variaveln_readers
@@ -66,7 +66,7 @@ while (1) {
       	if(n_readers==0) pthread_mutex_unlock(&array_buffer);  //caso este seja o ultimo leitor...
       	pthread_mutex_unlock(&mutex);         //up(&mutex); libera o acesso a variavel n_readers
 
-      	sleep_leitura();                      //isso eh usado apenas p melhorar  a visualizaçao da execução
+      	sleep_leitura();                      //isso eh usado apenas p melhorar  a visualizaÃ§ao da execuÃ§Ã£o
      	}
 	}
 }
@@ -80,26 +80,26 @@ main(){
 	scanf("%d",&m);
 	pthread_t escrita_th[n];
 	pthread_t leitura_th[m]; 
-	int *ID_escrita[n]; //
-	int *ID_leitura[m]; //
+	int *ID_escrita[n]; 
+	int *ID_leitura[m]; 
 
 //inicializacao dos semaforos...
 	pthread_mutex_init(&array_buffer, NULL);
 	pthread_mutex_init(&mutex, NULL);
 
 
-//criação das threads  de escritores...
+//criaÃ§Ã£o das threads  de escritores...
     for(i=0;i<n;i++){//
-    	ID_escrita[i]=(int *) malloc(sizeof(int)); //
-		*ID_escrita[i]=i;//
-    	pthread_create( &escrita_th[i], NULL,(void *) writer, (void *)ID_escrita[i]);//
+    	ID_escrita[i]=(int *) malloc(sizeof(int)); 
+		*ID_escrita[i]=i;
+    	pthread_create( &escrita_th[i], NULL,(void *) writer, (void *)ID_escrita[i]);
 }
 
-//criação das threads  de leitores...
+//criaÃ§Ã£o das threads  de leitores...
     for(i=0;i<m;i++){
-    	ID_leitura[i]=(int *) malloc(sizeof(int)); //
-		*ID_leitura[i]=i;//
-    	pthread_create( &leitura_th[i], NULL,(void *) reader, (void *)ID_leitura[i]);//
+    	ID_leitura[i]=(int *) malloc(sizeof(int)); 
+		*ID_leitura[i]=i;
+    	pthread_create( &leitura_th[i], NULL,(void *) reader, (void *)ID_leitura[i]);
 	}
 
 
