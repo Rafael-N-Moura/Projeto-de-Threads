@@ -45,7 +45,7 @@ while(1){
  //os sleeps foram adicionados para ver melhor as threads funcionando.
 void Readdb(int id){
 	//output do processo de leitura
-	printf(">> Thread %d: lendo banco de dados. Leitor %d > na posicao: %d\n",id,n_readers,read_random); //remover aki
+	printf(">> Thread %d: lendo banco de dados. Leitor %d > na posicao: %d\n",id,n_readers,read_random);
 	sleep(3);
 }
 
