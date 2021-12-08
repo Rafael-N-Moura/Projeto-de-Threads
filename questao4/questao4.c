@@ -65,7 +65,6 @@ int main(int argc, char *argv[])
 
     fscanf(ofile, "\n");
 
-    //fseek(ofile, sizeof(int) + sizeof(char), SEEK_CUR); //
     fscanf(ofile, "%d", &limite);
     fscanf(ofile, "\n");
 
