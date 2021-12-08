@@ -373,7 +373,9 @@ void *despachante()
 
     while (1)
     {
+
         pthread_mutex_lock(&mutexBuffer);
+        //Não é necessário travar o mutex do buffer de Resultados por que só seria feito o update de um elemento já criado por isso não tem possibilidade de conflito com a função agendarExecução. Já com a função pegarResultadoExecução, caso ela tente pegar um elemento que está sendo modificado e receba uma versão antiga ela simplesmente pegará o valor correto na próxima iteração do while
         int ids[N]; //Nesse buffer eu guardo os ids das requisições que foram mandadas para a execução dessa forma eu consigo saber
         //onde colocar o resultado no buffer de resultados quando a thread retornar da execução
 
