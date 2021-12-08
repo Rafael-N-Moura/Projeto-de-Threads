@@ -9,6 +9,8 @@
 2. Considerando um array como entrada e um número N, verifique se ele está ordenado (não
 decrescente), usando N threads.
 
+
+
 Sugestão: particionar o array em N partes, e cada thread verifica se aquele trecho está
 ordenado. Por fim, cada thread checa se o primeiro e último elemento do seu está ordenado
 com seu próximo.
