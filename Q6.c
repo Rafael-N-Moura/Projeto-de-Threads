@@ -57,15 +57,15 @@ void reader(void *tid) {  // a variavel n_readers controla o numero de leitores.
   			pthread_mutex_lock(&mutex);   //down(&mutex); garante acesso exclusivo a variaveln_readersn_readers=n_readers+1;                              //um novo leitor
 			read_random=rand()%buffer_size;
 			n_readers++;  
-      		if(n_readers==1) pthread_mutex_lock(&array_buffer);   //caso este seja o primeiro leitor...
-      		pthread_mutex_unlock(&mutex);         //up(&mutex); libera o acesso a variavel n_readers
-      		Readdb(id);             //le banco de dados
-      		pthread_mutex_lock(&mutex);           // garante acesso exclusivo a variavel n_readers
-      		n_readers=n_readers-1;                              //um leitor a menos...
-      		if(n_readers==0)pthread_mutex_unlock(&array_buffer);  //caso este seja o ultimo leitor...
-      		pthread_mutex_unlock(&mutex);         // libera o acesso a variavel n_readers
-      		sleep_leitura();	                      //isso eh usado apenas p melhorar  a visualizaçao da execução
-     	}
+      			if(n_readers==1) pthread_mutex_lock(&array_buffer);   //caso este seja o primeiro leitor...
+      			pthread_mutex_unlock(&mutex);         //libera o acesso a variavel n_readers
+      			Readdb(id);             //le banco de dados
+      			pthread_mutex_lock(&mutex);           //garante acesso exclusivo a variavel n_readers p decrementar o numero de leitores
+      			n_readers=n_readers-1;                              //um leitor a menos...
+      			if(n_readers==0)pthread_mutex_unlock(&array_buffer);  //caso este seja o ultimo leitor...
+      			pthread_mutex_unlock(&mutex);         // libera o acesso a variavel n_readers
+      			sleep_leitura();	                      //isso eh usado apenas p melhorar  a visualizaçao da execução
+     		}
 	}
 }
 
